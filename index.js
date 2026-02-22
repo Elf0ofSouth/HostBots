@@ -25,7 +25,8 @@ if (!token) {
 
   client.once('ready', () => console.log(`Bot online: ${client.user.tag}`));
 
-  client.login(token).catch(err => {
-    console.error('Login failed:', err.message);
+    client.login(token).catch(err => {
+    console.error('LOGIN FAILED:', err.message);
+    console.error('Full error:', err);
   });
-}
+
