@@ -1,19 +1,18 @@
 const { Client, GatewayIntentBits } = require('discord.js');
 const http = require('http');
 
-// HTTP server para Railway health check
-const server = http.createServer((req, res) => {
+// HTTP server para Railway manter o processo vivo
+http.createServer((req, res) => {
   res.writeHead(200);
   res.end('Bot is running');
-});
-server.listen(process.env.PORT || 3000, () => {
-  console.log(`HTTP server on port ${process.env.PORT || 3000}`);
+}).listen(process.env.PORT || 3000, () => {
+  console.log('HTTP server on port ' + (process.env.PORT || 3000));
 });
 
 const token = process.env.DISCORD_TOKEN;
 
 if (!token) {
-  console.log('DISCORD_TOKEN not set yet, waiting for redeploy...');
+  console.log('DISCORD_TOKEN not set, waiting for redeploy...');
 } else {
   const client = new Client({
     intents: [
@@ -23,10 +22,9 @@ if (!token) {
     ]
   });
 
-  client.once('ready', () => console.log(`Bot online: ${client.user.tag}`));
+  client.once('ready', () => console.log('Bot online: ' + client.user.tag));
 
-    client.login(token).catch(err => {
+  client.login(token).catch(err => {
     console.error('LOGIN FAILED:', err.message);
-    console.error('Full error:', err);
   });
-
+}
